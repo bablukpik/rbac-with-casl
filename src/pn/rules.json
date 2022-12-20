@@ -1,0 +1,23 @@
+{
+  "token": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyfQ.3MA5pz-JXuSs3YHdIEJcokTpharBLjUmfzXGp1dyYY8",
+  "rules": [
+      {
+          "actions": ["read"],
+          "subject": ["all"]
+      },
+      {
+          "actions": ["manage"],
+          "subject": ["Article"],
+          "conditions": {
+              "author_id": 2
+          }
+      },
+      {
+          "actions": ["read", "update"],
+          "subject": ["User"],
+          "conditions": {
+              "id": 2
+          }
+      }
+  ]
+}
