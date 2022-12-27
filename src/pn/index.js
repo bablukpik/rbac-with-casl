@@ -57,7 +57,7 @@ const anotherArticle = new Article({
 
 const abac = new ABAC();
 
-// checking with try catch block for showing exceptions
+// Example: 1, checking with try catch block for showing exceptions
 // try {
 //   // checking ability before taking some action
 //   ForbiddenError.from(ability).throwUnlessCan('delete', anotherArticle);
@@ -67,7 +67,7 @@ const abac = new ABAC();
 // return false;
 // }
 
-// directly checking
+// Example: 2, directly checking
 // const result = ability.can('delete', anotherArticle);
 // const result = ability.can('read', ownArticle);
 const result = ability.can('module-1__feature-2__attribute-1', abac); // redux or exported result
@@ -77,5 +77,3 @@ console.log('result', result);
 // if(result) {
 //   <h1>Hello world!</h1> // component name here
 // }
-
-

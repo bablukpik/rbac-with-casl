@@ -1,5 +1,6 @@
 const {
   createMongoAbility,
+  subject,
 } = require('@casl/ability');
 
 const rules = [
@@ -17,20 +18,26 @@ const rules = [
 
 const ability = createMongoAbility(rules);
 
-class ABAC {
-  constructor(attrs) {
-    Object.assign(this, attrs);
-  }
-}
+// Example: 1
+// class ABAC {
+//   constructor(attrs) {
+//     Object.assign(this, attrs);
+//   }
+//   // this static method is needed for minification
+//   static get modelName() {
+//     return 'ABAC'
+//   }
+// }
 
-const abac = new ABAC();
+// const abac = new ABAC();
 
-const hasAbility = (actionId = '') => ability.can(actionId, abac); // use redux or use as an exported function
+// const hasAbility = (actionId = '') => ability.can(actionId, abac); // use redux or use as an exported function
+
+// Example: 2
+const hasAbility = (actionId = '') => ability.can(actionId, subject('ABAC', {}));
 
 console.log('hasAbility', hasAbility('module-1__feature-1__attribute-1'));
 
 // if(hasAbility('module-1__feature-2__attribute-1')) {
 //   <h1>Hello world!</h1> // component name here
 // }
-
-
