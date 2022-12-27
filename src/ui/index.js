@@ -29,12 +29,10 @@ const ability = createMongoAbility(rules);
 //   }
 // }
 
-// const abac = new ABAC();
-
-// const hasAbility = (actionId = '') => ability.can(actionId, abac); // use redux or use as an exported function
+// const hasAbility = (actionId, attrs = {}) => ability.can(actionId, new ABAC(attrs)); // use redux or use as an exported function
 
 // Example: 2, using subject helper
-const hasAbility = (actionId = '') => ability.can(actionId, subject('ABAC', {}));
+const hasAbility = (actionId, attrs = {}) => ability.can(actionId, subject('ABAC', attrs));
 
 console.log('hasAbility', hasAbility('module-1__feature-1__attribute-1'));
 
