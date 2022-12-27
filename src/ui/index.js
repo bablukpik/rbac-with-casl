@@ -18,7 +18,7 @@ const rules = [
 
 const ability = createMongoAbility(rules);
 
-// Example: 1
+// Example: 1, using class
 // class ABAC {
 //   constructor(attrs) {
 //     Object.assign(this, attrs);
@@ -33,7 +33,7 @@ const ability = createMongoAbility(rules);
 
 // const hasAbility = (actionId = '') => ability.can(actionId, abac); // use redux or use as an exported function
 
-// Example: 2
+// Example: 2, using subject helper
 const hasAbility = (actionId = '') => ability.can(actionId, subject('ABAC', {}));
 
 console.log('hasAbility', hasAbility('module-1__feature-1__attribute-1'));
