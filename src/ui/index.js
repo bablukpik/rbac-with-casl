@@ -16,7 +16,9 @@ const rules = [
   },
 ];
 
-const ability = createMongoAbility(rules);
+const rulesData = (permissions) => (permissions.length > 0 && permissions)
+  || JSON.parse(localStorage.getItem('userPermissions') || '[]');
+const ability = createMongoAbility(rulesData(rules));
 
 // Example: 1, using class
 // class ABAC {
