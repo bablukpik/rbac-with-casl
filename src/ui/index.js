@@ -16,28 +16,40 @@ const rules = [
   },
 ];
 
-const rulesData = (permissions = []) => (permissions.length > 0 && permissions)
-  || JSON.parse(localStorage.getItem('userPermissions') || '[]');
-const ability = createMongoAbility(rulesData(rules));
+/**
+* Checks attributes based access control permissions
+* @param {string} attributeId - The attributeId is needed for checking access, i.e: module-2__feature-4__attribute-24
+* @param {object} attrs - The attrs is needed for condition property, i.e:
+    {
+      action: 'module-2__feature-4__attribute-24',
+      subject: 'ABAC',
+      conditions: { active: true },
+      reason: 'You are not allowed to access this resource',
+    }
+* @param {object} permissions - Permissions data initialization, i.e:
+    [
+      {
+        action: 'module-2__feature-4__attribute-24',
+        subject: 'ABAC',
+        reason: 'You are not allowed to access this resource',
+      },
+    ]
+  @returns {boolean} - true/false
+*/
 
-// Example: 1, using class
-// class ABAC {
-//   constructor(attrs) {
-//     Object.assign(this, attrs);
-//   }
-//   // this static method is needed for minification
-//   static get modelName() {
-//     return 'ABAC'
-//   }
-// }
+const hasAbility = (
+  attributeId,
+  attrs = {},
+  permissions = [],
+) => {
+  // const rulesData = (permissions.length > 0 && permissions) || JSON.parse(localStorage?.getItem('userPermissions') || '[]');
+  const rulesData = (permissions.length > 0 && permissions);
+  const ability = createMongoAbility(rulesData);
+  return ability.can(attributeId, subject('ABAC', attrs));
+};
 
-// const hasAbility = (actionId, attrs = {}) => ability.can(actionId, new ABAC(attrs)); // use redux or use as an exported function
+console.log('hasAbility', hasAbility('module-1__feature-1__attribute-1', {}, rules));
 
-// Example: 2, using subject helper
-const hasAbility = (actionId, attrs = {}) => ability.can(actionId, subject('ABAC', attrs));
-
-console.log('hasAbility', hasAbility('module-1__feature-1__attribute-1'));
-
-// if(hasAbility('module-1__feature-2__attribute-1')) {
+// if(hasAbility('module-1__feature-2__attribute-1', {}, rules)) {
 //   <h1>Hello world!</h1> // component name here
 // }
