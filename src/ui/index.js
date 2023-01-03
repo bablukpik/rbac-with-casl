@@ -26,7 +26,7 @@ const rules = [
       conditions: { active: true },
       reason: 'You are not allowed to access this resource',
     }
-* @param {object} permissions - Permissions data initialization, i.e:
+* @param {array} permissions - Permissions data initialization, i.e:
     [
       {
         action: 'module-2__feature-4__attribute-24',
