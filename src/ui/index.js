@@ -18,8 +18,9 @@ const rules = [
 ];
 
 /**
-* Checks attributes based access control permissions
-* @param {string} attributeId - The attributeId is needed for checking access, i.e: module-2__feature-4__attribute-24
+* Checks attribute based access control permissions
+* @param {string} action - The action/permission is needed for checking access in the permission list, i.e:
+  whether module-2__feature-4__attribute-24 exists or not in the permissions list
 * @param {array} permissions - Permissions data initialization, i.e:
     [
       {
@@ -39,7 +40,7 @@ const rules = [
 */
 
 const hasAbility = (
-  attributeId,
+  action,
   permissions = [],
   attrs = {},
 ) => {
@@ -47,7 +48,7 @@ const hasAbility = (
   // OR
   const rulesData = (permissions.length > 0 && permissions);
   const ability = createMongoAbility(rulesData);
-  return ability.can(attributeId, subject('ABAC', attrs));
+  return ability.can(action, subject('ABAC', attrs));
 };
 
 
@@ -61,6 +62,6 @@ const hasAbility = (
 console.log('hasAbility', hasAbility('module-1__feature-2__attribute-2',
   rules,
   {
-    published: true,
+    published: false,
   })
 );
