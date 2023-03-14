@@ -1,5 +1,5 @@
 {
-  "token": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyfQ.3MA5pz-JXuSs3YHdIEJcokTpharBLjUmfzXGp1dyYY8",
+  "token": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyfQ.asdf",
   "rules": [
       {
           "actions": ["read"],
