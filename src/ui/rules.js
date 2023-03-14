@@ -36,6 +36,7 @@ const users = [
 ];
 
 // rules/permissions for a specific user which can be pulled from a database
+// afterwards we can get these rules in the UI/FE through an API
 const permissions = users.find((user) => user.email === 'bablukpik@gmail.com').rules;
 
 module.exports = permissions;
