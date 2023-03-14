@@ -3,26 +3,7 @@ const {
   subject,
 } = require('@casl/ability');
 
-const rules = [
-  {
-    action: 'module-1__feature-1__attribute-1', // action id
-    subject: 'ABAC',
-    reason: 'You are not allowed to perform this action',
-  },
-  {
-    action: 'module-1__feature-2__attribute-2',
-    subject: 'ABAC',
-    conditions: { published: false },
-    reason: 'You are not allowed to perform this action',
-  },
-  {
-    action: 'module-1__feature-3__attribute-3',
-    subject: 'ABAC',
-    conditions: { published: false },
-    fields: ['title', 'description'],
-    reason: 'You are not allowed to perform this action',
-  },
-];
+const permissions = require('./rules');
 
 /**
 * Checks attribute based access control permissions
@@ -53,11 +34,11 @@ const rules = [
 */
 
 const hasAbility = ({
+  permissions = [],
   action,
   subj = 'ABAC',
   field = undefined,
   conditions = {},
-  permissions = [],
 }) => {
   // const rulesData = (permissions.length > 0 && permissions) || JSON.parse(localStorage?.getItem('userPermissions') || '[]');
   // OR
@@ -68,24 +49,41 @@ const hasAbility = ({
 
 
 // Example
-// console.log('hasAbility', hasAbility({ action: 'module-1__feature-1__attribute-1', permissions: rules })); // true
-// if(hasAbility({ action: 'module-1__feature-1__attribute-1', permissions: rules })) {
+// console.log('hasAbility', hasAbility({ action: 'module-1__feature-1__attribute-1', permissions })); // true
+// if(hasAbility({ action: 'module-1__feature-1__attribute-1', permissions })) {
 //   <h1>Hello world!</h1> // component name here
 // }
 
 // Example 2
 // console.log('hasAbility', hasAbility({
-//   permissions: rules,
+//   permissions,
 //   action: 'module-1__feature-2__attribute-2',
 //   conditions: { published: true }
 // })
 // );
 
 // Example 3
+// console.log('hasAbility', hasAbility({
+//   permissions,
+//   action: 'module-1__feature-3__attribute-3',
+//   field: 'title',
+//   conditions: { published: false },
+// })
+// );
+
+// Example 4
 console.log('hasAbility', hasAbility({
-  permissions: rules,
-  action: 'module-1__feature-3__attribute-3',
-  field: 'title',
+  permissions,
+  action: 'CREATE',
+  subj: 'Article',
   conditions: { published: false },
 })
-);
+); // true
+
+console.log('hasAbility', hasAbility({
+  permissions,
+  action: 'DELETE',
+  subj: 'Article',
+  conditions: { published: false },
+})
+); // false, because DELETE does not exist in the action list of the rules
